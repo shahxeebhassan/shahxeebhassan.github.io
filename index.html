@@ -418,7 +418,7 @@
             });
         });
 
-        // --- AI Chatbot Logic (Powered by n8n & Mistral) ---
+        // --- AI Chatbot Logic (Powered by n8n) ---
         const chatbotToggle = document.getElementById('chatbot-toggle');
         const chatbotWindow = document.getElementById('chatbot-window');
         const closeChatbot = document.getElementById('close-chatbot');
@@ -426,7 +426,6 @@
         const chatbotInput = document.getElementById('chatbot-input');
         const chatMessages = document.getElementById('chat-messages');
 
-        // Simplified function to toggle chatbot visibility with smooth animation
         function toggleChatbot() {
             chatbotWindow.classList.toggle('is-open');
         }
@@ -443,8 +442,7 @@
             chatbotInput.value = '';
             
             addTypingIndicator();
-            // *** CHANGE: Call the new function for n8n ***
-            getMistralResponse(message);
+            getN8nResponse(message);
         });
         
         function addMessage(message, sender) {
@@ -483,9 +481,8 @@
          * Gets a response from your n8n webhook.
          * @param {string} userMessage The user's message.
          */
-        async function getMistralResponse(userMessage) {
-            // *** CHANGE: Use your n8n webhook URL ***
-            const apiUrl = 'https://awsn8n.shahzaibhassan.site/webhook-test/portfolio';
+        async function getN8nResponse(userMessage) {
+            const apiUrl = 'https://awsn8n.shahzaibhassan.site/webhook/portfolio';
 
             try {
                 const response = await fetch(apiUrl, {
@@ -493,7 +490,6 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    // *** CHANGE: Send a simple JSON object with the message ***
                     body: JSON.stringify({ message: userMessage })
                 });
 
@@ -503,9 +499,9 @@
 
                 const result = await response.json();
                 
-                // *** CHANGE: Access the response correctly from n8n's output ***
-                // This assumes your n8n workflow passes the Mistral response directly.
-                const botReply = result.choices[0].message.content;
+                // *** THIS IS THE FIX ***
+                // Read the 'body' property from the JSON object that n8n sends back.
+                const botReply = result.body;
                 
                 removeTypingIndicator();
                 addMessage(botReply, 'bot');
@@ -519,17 +515,8 @@
 
         // --- Run scripts on DOM load ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Start the typewriter effect after a short delay
             setTimeout(type, 500);
-            
-            // Make the first section visible immediately on load
             document.querySelector('#home').classList.add('is-visible');
-            
-            // *** CHANGE: Update the initial bot message to be more generic ***
-            const initialBotMessage = document.querySelector('#chat-messages > div');
-            if (initialBotMessage) {
-                initialBotMessage.textContent = "Hi! I'm Shahzaib's AI assistant. Ask me anything about his work, skills, or projects.";
-            }
         });
     </script>
 </body>
