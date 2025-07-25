@@ -1,134 +1,553 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Join NeuraFinity Python Bootcamp - A comprehensive 2-month intensive program to master Python programming and advance your tech career.">
-  <title>NeuraFinity Python Bootcamp</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahzaib Hassan | AI & Automation Specialist</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons for social links -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* Base styles for clarity and modern look */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+
+        /* Gradient text for hero section */
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Blinking cursor for typewriter effect */
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background-color: #2563eb; /* blue-600 */
+            animation: blink 0.7s infinite;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        /* Custom timeline styling */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #2563eb; /* blue-600 */
+            border: 3px solid #dbeafe; /* blue-100 */
+        }
+
+        /* Fade-in animation for sections on scroll */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 3D Tilt Effect for cards */
+        .tilt-card {
+            transition: transform 0.3s ease;
+        }
+
+        /* Chatbot styles */
+        .chat-bubble-user {
+            background-image: linear-gradient(to right, #2563eb, #7c3aed);
+            color: white;
+        }
+        
+        /* New styles for professional chatbot open/close animation */
+        #chatbot-window {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            pointer-events: none;
+            visibility: hidden;
+        }
+        #chatbot-window.is-open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            visibility: visible;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-  <!-- Hero Section -->
-  <header class="gradient-bg text-white py-20">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-5xl font-bold mb-6">NeuraFinity Python Bootcamp</h1>
-      <p class="text-xl mb-4">Transform your career with our intensive 2-month Python programming journey</p>
-      <p class="text-lg text-red-300 font-semibold mb-6">Registration closes in: <span id="countdown" class="font-bold"></span></p>
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-        <a href="https://forms.gle/7AQKFa8hScmGyx9t7" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover-scale">Register Now</a>
-        <a href="#about" class="border-2 border-white hover:bg-white hover:text-gray-900 text-white font-bold py-3 px-8 rounded-full hover-scale">Learn More</a>
-      </div>
+<body class="antialiased">
+
+    <!-- =========== Header / Navigation Bar =========== -->
+    <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-slate-800">Shahzaib.</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="text-slate-600 hover:text-blue-600 transition-colors">Home</a>
+                <a href="#about" class="text-slate-600 hover:text-blue-600 transition-colors">About</a>
+                <a href="#portfolio" class="text-slate-600 hover:text-blue-600 transition-colors">Portfolio</a>
+                <a href="#tech-stack" class="text-slate-600 hover:text-blue-600 transition-colors">Stack</a>
+                <a href="#contact" class="text-slate-600 hover:text-blue-600 transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-slate-600" aria-label="Open menu">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2 bg-white">
+            <a href="#home" class="block text-slate-600 hover:text-blue-600 py-2">Home</a>
+            <a href="#about" class="block text-slate-600 hover:text-blue-600 py-2">About</a>
+            <a href="#portfolio" class="block text-slate-600 hover:text-blue-600 py-2">Portfolio</a>
+            <a href="#tech-stack" class="block text-slate-600 hover:text-blue-600 py-2">Stack</a>
+            <a href="#contact" class="block text-slate-600 hover:text-blue-600 py-2">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+        <!-- =========== Hero Section =========== -->
+        <section id="home" class="py-20 md:py-32 fade-in-section">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-800">Hi, I'm <span class="gradient-text">Shahzaib</span></h1>
+                    <h2 class="text-xl md:text-2xl font-medium text-slate-600 mt-2">AI & Automation Specialist | Co-founder @ NeuraFinity</h2>
+                    <p class="text-lg text-slate-500 mt-4 h-14">
+                        <span id="typewriter"></span><span class="typewriter-cursor"></span>
+                    </p>
+                    <div class="mt-8 flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#portfolio" class="bg-gradient-to-r from-blue-600 to-violet-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">View My Work</a>
+                        <a href="#contact" class="bg-white text-slate-700 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-slate-100 transform hover:scale-105 transition-all border border-slate-200">Let's Talk</a>
+                    </div>
+                </div>
+                <div class="flex justify-center order-first md:order-last">
+                    <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-slate-200 flex items-center justify-center overflow-hidden shadow-2xl">
+                         <img src="https://placehold.co/400x400/E2E8F0/475569?text=Shahzaib" alt="Shahzaib Hassan Profile Picture" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== About Section =========== -->
+        <section id="about" class="py-20 fade-in-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">About Me</h2>
+                <p class="text-lg text-slate-500 mt-2 max-w-3xl mx-auto">A passionate builder at the intersection of AI and practical automation.</p>
+            </div>
+            <div class="grid md:grid-cols-5 gap-12 items-start">
+                <div class="md:col-span-3">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Crafting Intelligent Automation</h3>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        I'm an AI and Automation Specialist with a passion for building intelligent systems that automate real-world business operations. I co-founded <a href="#" class="text-blue-500 font-semibold hover:underline">NeuraFinity</a> to bring agentic AI solutions to life, making finance smarter and automation easier for everyone.
+                    </p>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        My work is driven by a commitment to ethical AI and community building. I enjoy teaching Python and AI concepts, empowering others to build the future. At NeuraFinity, our vision is to create a world where intelligent agents work alongside humans to solve complex problems and unlock new possibilities.
+                    </p>
+                </div>
+                <div class="md:col-span-2">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">My Journey</h3>
+                    <div class="relative border-l-2 border-blue-200 pl-8">
+                        <div class="timeline-item mb-8">
+                            <h4 class="font-semibold text-slate-700">Student at IUB</h4>
+                            <p class="text-sm text-slate-500">Started my journey in computer science, discovering a passion for code.</p>
+                        </div>
+                        <div class="timeline-item mb-8">
+                            <h4 class="font-semibold text-slate-700">Teaching Python & AI</h4>
+                            <p class="text-sm text-slate-500">Began sharing knowledge, teaching bootcamps and mentoring students.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-semibold text-slate-700">Co-founded NeuraFinity</h4>
+                            <p class="text-sm text-slate-500">Building a company focused on agentic AI solutions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Portfolio Section =========== -->
+        <section id="portfolio" class="py-20 bg-slate-100 -mx-6 px-6 fade-in-section">
+            <div class="container mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-800">My Portfolio</h2>
+                    <p class="text-lg text-slate-500 mt-2">A selection of my work in AI, web, and education.</p>
+                </div>
+                <!-- Filter Buttons -->
+                <div class="flex justify-center flex-wrap gap-2 md:gap-4 mb-8" id="portfolio-filters">
+                    <button class="filter-btn bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all" data-filter="all">All</button>
+                    <button class="filter-btn bg-white text-slate-600 px-4 py-2 rounded-full text-sm font-semibold transition-all" data-filter="ai">AI Agents</button>
+                    <button class="filter-btn bg-white text-slate-600 px-4 py-2 rounded-full text-sm font-semibold transition-all" data-filter="web">Web Apps</button>
+                    <button class="filter-btn bg-white text-slate-600 px-4 py-2 rounded-full text-sm font-semibold transition-all" data-filter="training">Training</button>
+                </div>
+
+                <div id="portfolio-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card 1 -->
+                    <div class="portfolio-item tilt-card bg-white rounded-lg shadow-lg overflow-hidden group" data-category="ai">
+                        <img src="https://placehold.co/600x400/2563eb/ffffff?text=AI+Agents" alt="Project Image" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">AI Agents for Business Automation</h3>
+                            <p class="text-slate-600 mb-4">Autonomous agents for data entry, customer support, and financial analysis.</p>
+                            <a href="#" class="text-blue-500 font-semibold hover:underline">View Demo &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Project Card 2 -->
+                    <div class="portfolio-item tilt-card bg-white rounded-lg shadow-lg overflow-hidden group" data-category="web">
+                        <img src="https://placehold.co/600x400/7c3aed/ffffff?text=LMS+Portal" alt="Project Image" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">LMS Portal for Course Management</h3>
+                            <p class="text-slate-600 mb-4">A full-stack Learning Management System for instructors and students.</p>
+                            <a href="#" class="text-blue-500 font-semibold hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Project Card 3 -->
+                    <div class="portfolio-item tilt-card bg-white rounded-lg shadow-lg overflow-hidden group" data-category="training">
+                        <img src="https://placehold.co/600x400/db2777/ffffff?text=Python+Bootcamp" alt="Project Image" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">Python Bootcamp Series</h3>
+                            <p class="text-slate-600 mb-4">Comprehensive curriculum and materials for a Python bootcamp.</p>
+                            <a href="#" class="text-blue-500 font-semibold hover:underline">See Materials &rarr;</a>
+                        </div>
+                    </div>
+                     <!-- Project Card 4 -->
+                    <div class="portfolio-item tilt-card bg-white rounded-lg shadow-lg overflow-hidden group" data-category="ai">
+                        <img src="https://placehold.co/600x400/f59e0b/ffffff?text=GANs+Lab" alt="Project Image" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">GANs Lab for AI Students</h3>
+                            <p class="text-slate-600 mb-4">Interactive labs for experimenting with Generative Adversarial Networks.</p>
+                            <a href="#" class="text-blue-500 font-semibold hover:underline">Explore Lab &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Tech Stack Section =========== -->
+        <section id="tech-stack" class="py-20 fade-in-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800">My Tech Stack</h2>
+                <p class="text-lg text-slate-500 mt-2">Tools and technologies I use to build things.</p>
+            </div>
+            <div class="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-8 md:gap-10">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="h-12 md:h-14 transition-transform hover:scale-110" alt="Python"/>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" class="h-12 md:h-14 transition-transform hover:scale-110" alt="TensorFlow"/>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" class="h-12 md:h-14 transition-transform hover:scale-110" alt="PyTorch"/>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" class="h-12 md:h-14 transition-transform hover:scale-110" alt="FastAPI"/>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="h-12 md:h-14 transition-transform hover:scale-110" alt="React"/>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="h-12 md:h-14 transition-transform hover:scale-110" alt="Node.js"/>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" class="h-12 md:h-14 transition-transform hover:scale-110" alt="Docker"/>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" class="h-12 md:h-14 transition-transform hover:scale-110" alt="Tailwind CSS"/>
+            </div>
+        </section>
+        
+        <!-- =========== Contact Section =========== -->
+        <section id="contact" class="py-20 bg-slate-100 -mx-6 px-6 fade-in-section">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Let's Build Together</h2>
+                <p class="text-center text-slate-500 mb-12">Have a project, a question, or just want to connect? I'd love to hear from you.</p>
+                <div class="bg-white p-8 rounded-lg shadow-2xl">
+                    <form action="https://formspree.io/f/your_form_id" method="POST">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-600 mb-2">Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-slate-300 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 text-slate-800" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-600 mb-2">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-slate-300 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 text-slate-800" required>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <label for="message" class="block text-sm font-medium text-slate-600 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-slate-300 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 text-slate-800" required></textarea>
+                        </div>
+                        <div class="text-center mt-6">
+                            <button type="submit" class="bg-gradient-to-r from-blue-600 to-violet-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========== Footer =========== -->
+    <footer class="bg-slate-800 text-slate-400 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-white transition-colors" aria-label="GitHub"><i data-feather="github"></i></a>
+                <a href="#" class="hover:text-white transition-colors" aria-label="LinkedIn"><i data-feather="linkedin"></i></a>
+                <a href="#" class="hover:text-white transition-colors" aria-label="Twitter"><i data-feather="twitter"></i></a>
+            </div>
+            <p>&copy; 2025 Shahzaib Hassan — Powered by <a href="#" class="font-semibold hover:text-white">NeuraFinity</a></p>
+        </div>
+    </footer>
+
+    <!-- =========== Floating Action Buttons =========== -->
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/your-whatsapp-number" target="_blank" class="fixed bottom-5 left-5 z-50 bg-green-500 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transform hover:scale-110 transition-transform" aria-label="Chat on WhatsApp">
+        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.75 13.96c-.25-.12-1.47-.72-1.7-.81-.23-.09-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.18-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.3-.02-.42-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.55-.42-.15 0-.32-.03-.48-.03-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.76 2.67 4.25 3.73.59.25 1.05.4 1.41.51.7.22 1.34.19 1.84.12.56-.09 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.16-.48-.28z" fill="white"/><path d="M20.2 3.8A10.14 10.14 0 0012 2a10.14 10.14 0 00-8.2 16.4L2 22l3.8-1.8A10.14 10.14 0 0012 22a10.14 10.14 0 0010-10.1c0-2.8-1.1-5.3-3.1-7.1l.3-.3z" fill="white"/></svg>
+    </a>
+    
+    <!-- AI Chatbot -->
+    <div id="chatbot-container" class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+        <!-- Chatbot Window -->
+        <div id="chatbot-window" class="w-80 sm:w-96 h-[500px] bg-white rounded-lg shadow-2xl flex flex-col mb-4">
+            <!-- Header -->
+            <div class="p-3 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-t-lg flex justify-between items-center flex-shrink-0">
+                <h3 class="font-semibold">AI Assistant</h3>
+                <button id="close-chatbot" class="text-white hover:text-blue-200" aria-label="Close chat">
+                    <i data-feather="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Messages -->
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 bg-white">
+                <!-- Initial message from bot -->
+                <div class="p-3 rounded-lg max-w-[85%] self-start bg-slate-200 text-slate-800">
+                    Hi! I'm Shahzaib's AI assistant, powered by Gemini. Ask me anything about his work, skills, or projects.
+                </div>
+            </div>
+            <!-- Input -->
+            <div class="p-3 border-t border-slate-200 bg-white rounded-b-lg flex-shrink-0">
+                <form id="chatbot-form" class="flex items-center space-x-2">
+                    <input type="text" id="chatbot-input" placeholder="Ask a question..." class="w-full px-3 py-2 border border-slate-300 bg-white rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm text-slate-800">
+                    <button type="submit" class="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 flex-shrink-0" aria-label="Send message">
+                        <i data-feather="send" class="w-5 h-5"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <!-- Chatbot Toggle Button -->
+        <button id="chatbot-toggle" class="bg-gradient-to-r from-blue-600 to-violet-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transform hover:scale-110 transition-transform flex-shrink-0" aria-label="Toggle AI Chatbot">
+            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V12C22 6.48 17.52 2 12 2Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 11.5C9.32843 11.5 10 10.8284 10 10C10 9.17157 9.32843 8.5 8.5 8.5C7.67157 8.5 7 9.17157 7 10C7 10.8284 7.67157 11.5 8.5 11.5Z" fill="white"/><path d="M15.5 11.5C16.3284 11.5 17 10.8284 17 10C17 9.17157 16.3284 8.5 15.5 8.5C14.6716 8.5 14 9.17157 14 10C14 10.8284 14.6716 11.5 15.5 11.5Z" fill="white"/><path d="M9 16H15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
     </div>
-  </header>
 
-  <!-- About Section -->
-  <section id="about" class="py-20">
-    <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-12">What You'll Learn</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-lg shadow-lg hover-scale">
-          <div class="text-4xl mb-4 text-blue-500">👨‍💻</div>
-          <h3 class="text-xl font-bold mb-4">Complete Python Programming</h3>
-          <p class="text-gray-600">From basics to advanced concepts, master Python programming with hands-on projects</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg hover-scale">
-          <div class="text-4xl mb-4 text-blue-500">🎯</div>
-          <h3 class="text-xl font-bold mb-4">LeetCode & Interview Prep</h3>
-          <p class="text-gray-600">Prepare for technical interviews with problem-solving strategies</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg hover-scale">
-          <div class="text-4xl mb-4 text-blue-500">🌟</div>
-          <h3 class="text-xl font-bold mb-4">Career Development</h3>
-          <p class="text-gray-600">Build your professional profile with LinkedIn & GitHub optimization</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <script>
+        // --- Feather Icons Initialization ---
+        feather.replace();
 
-  <!-- Instructor Section -->
-  <section class="bg-white py-20">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-4xl font-bold mb-12">Meet Your Instructor</h2>
-      <div class="max-w-3xl mx-auto">
-        <h3 class="text-2xl font-bold mb-4">Shahzaib Hassan</h3>
-        <p class="text-gray-600 mb-4">Microsoft Certified AI Engineer with over 2 years of teaching experience</p>
-        <div class="space-y-2 text-left inline-block">
-          <div class="flex items-center">
-            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-            <span>Ranked 72nd internationally in M(IT)^2 2025 Winter Contest</span>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-            <span>100+ LeetCode problems solved</span>
-          </div>
-          <div class="flex items-center">
-            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-            <span>Active AI systems developer and mentor</span>
-          </div>
-        </div>
-        <div class="mt-6">
-          <a href="https://www.linkedin.com/in/shahzaib-ai-developer/" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded inline-flex items-center">
-            <i class="fab fa-linkedin mr-2"></i>
-            <span>Connect on LinkedIn</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+        // --- Mobile Menu Toggle ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('#mobile-menu a, nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
 
-  <!-- FAQ Section -->
-  <section class="py-20 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-      <div class="max-w-3xl mx-auto space-y-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="text-xl font-semibold mb-2">Who can join this bootcamp?</h3>
-          <p class="text-gray-600">Anyone interested in learning Python — whether you're a complete beginner or have some programming experience.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="text-xl font-semibold mb-2">Is there any fee to join?</h3>
-          <p class="text-gray-600">The bootcamp is completely free. A minimal registration fee (500 PKR) is only to ensure commitment and will be used for certificates and necessary tools.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="text-xl font-semibold mb-2">Will I get a certificate?</h3>
-          <p class="text-gray-600">Yes! A certificate will be provided at the end of the bootcamp to all participants who complete it successfully.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="text-xl font-semibold mb-2">What will be the mode of delivery?</h3>
-          <p class="text-gray-600">The entire bootcamp will be conducted online via Google Meet for convenience and accessibility.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        // --- Typewriter Effect ---
+        const typewriterElement = document.getElementById('typewriter');
+        const textToType = "Turning code into intelligent agents that automate your world.";
+        let index = 0;
+        function type() {
+            if (index < textToType.length) {
+                typewriterElement.textContent += textToType.charAt(index++);
+                setTimeout(type, 50);
+            }
+        }
+        
+        // --- Scroll Animation Observer ---
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+        
+        // --- Portfolio Filtering ---
+        const filterBtns = document.querySelectorAll('#portfolio-filters .filter-btn');
+        const portfolioItems = document.querySelectorAll('#portfolio-grid .portfolio-item');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white');
+                    b.classList.add('bg-white', 'text-slate-600');
+                });
+                btn.classList.add('bg-blue-600', 'text-white');
+                btn.classList.remove('bg-white', 'text-slate-600');
 
-  <!-- Footer -->
-  <footer class="gradient-bg text-white py-8">
-    <div class="container mx-auto px-4 text-center">
-      <p>© 2024 NeuraFinity Club. All rights reserved.</p>
-      <p class="mt-2">In collaboration with IUB Skills & Career Development Society</p>
-    </div>
-  </footer>
+                const filter = btn.dataset.filter;
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
 
-  <script>
-    // Countdown Timer
-    const countdown = () => {
-      const deadline = new Date("2025-07-05T23:59:59").getTime();
-      const now = new Date().getTime();
-      const diff = deadline - now;
+        // --- 3D Tilt Effect ---
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = card.getBoundingClientRect();
+                const x = (e.clientX - left - width / 2) / (width/2);
+                const y = (e.clientY - top - height / 2) / (height/2);
+                card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) scale3d(1.03, 1.03, 1.03)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1, 1, 1)';
+            });
+        });
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        // --- AI Chatbot Logic (Powered by Gemini) ---
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const closeChatbot = document.getElementById('close-chatbot');
+        const chatbotForm = document.getElementById('chatbot-form');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatMessages = document.getElementById('chat-messages');
 
-      document.getElementById("countdown").textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    };
-    setInterval(countdown, 1000);
-  </script>
+        // Simplified function to toggle chatbot visibility with smooth animation
+        function toggleChatbot() {
+            chatbotWindow.classList.toggle('is-open');
+        }
 
-  <script src="script.js"></script>
+        chatbotToggle.addEventListener('click', toggleChatbot);
+        closeChatbot.addEventListener('click', toggleChatbot);
+
+        chatbotForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = chatbotInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            chatbotInput.value = '';
+            
+            addTypingIndicator();
+            getGeminiResponse(message);
+        });
+        
+        function addMessage(message, sender) {
+            const bubble = document.createElement('div');
+            bubble.textContent = message;
+            if (sender === 'user') {
+                bubble.className = 'chat-bubble-user p-3 rounded-lg max-w-[85%] self-end break-words';
+            } else {
+                bubble.className = 'p-3 rounded-lg max-w-[85%] self-start bg-slate-200 text-slate-800 break-words';
+            }
+            chatMessages.appendChild(bubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function addTypingIndicator() {
+            const typingBubble = document.createElement('div');
+            typingBubble.id = 'typing-indicator';
+            typingBubble.className = 'p-3 rounded-lg max-w-xs self-start flex items-center space-x-1 bg-slate-200';
+            typingBubble.innerHTML = `
+                <span class="w-2 h-2 bg-slate-400 rounded-full animate-pulse" style="animation-delay: 0s;"></span>
+                <span class="w-2 h-2 bg-slate-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></span>
+                <span class="w-2 h-2 bg-slate-400 rounded-full animate-pulse" style="animation-delay: 0.4s;"></span>
+            `;
+            chatMessages.appendChild(typingBubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        /**
+         * Gets a response from the Gemini API.
+         * @param {string} userMessage The user's message.
+         */
+        async function getGeminiResponse(userMessage) {
+            // This is the context for the AI. It knows everything about Shahzaib from this prompt.
+            const contextPrompt = `
+                You are a friendly and professional AI assistant for Shahzaib Hassan's portfolio website.
+                Your goal is to answer questions about Shahzaib to potential employers, clients, or collaborators.
+                Keep your answers concise, informative, and engaging.
+                
+                Here is information about Shahzaib Hassan:
+                - **Role:** AI & Automation Specialist, Co-founder at NeuraFinity.
+                - **Mission:** He builds intelligent systems to automate real-world business operations.
+                - **Company (NeuraFinity):** Focuses on creating agentic AI solutions, especially for the finance sector. Their vision is to have intelligent agents work alongside humans.
+                - **Skills & Tech Stack:** - AI/ML: Python, TensorFlow, PyTorch.
+                    - Web Development: FastAPI, React, Node.js.
+                    - DevOps & Tools: Docker, Tailwind CSS.
+                - **Projects:**
+                    1.  **AI Agents for Business Automation:** Created autonomous agents for tasks like data entry, customer support, and financial analysis.
+                    2.  **LMS Portal:** Built a full-stack Learning Management System for course management.
+                    3.  **Python Bootcamp Series:** Developed curriculum and materials for teaching Python.
+                    4.  **GANs Lab:** Created interactive labs for students to experiment with Generative Adversarial Networks.
+                - **Experience:** Student at IUB (Computer Science), taught Python & AI bootcamps, and co-founded NeuraFinity.
+                - **Contact:** Users can get in touch via the contact form on the website.
+                
+                Now, please answer the following user question.
+            `;
+
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: [{ text: `${contextPrompt}\n\nUser Question: "${userMessage}"` }]
+                }],
+            };
+            const apiKey = ""; // The environment will provide the key.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const botReply = result.candidates[0].content.parts[0].text;
+                
+                removeTypingIndicator();
+                addMessage(botReply, 'bot');
+
+            } catch (error) {
+                console.error("Gemini API call failed:", error);
+                removeTypingIndicator();
+                addMessage("Sorry, I'm having a little trouble connecting right now. Please try again in a moment.", 'bot');
+            }
+        }
+
+        // --- Run scripts on DOM load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start the typewriter effect after a short delay
+            setTimeout(type, 500);
+            
+            // Make the first section visible immediately on load
+            document.querySelector('#home').classList.add('is-visible');
+        });
+    </script>
 </body>
 </html>
