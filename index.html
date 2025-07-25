@@ -323,7 +323,7 @@
             <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 bg-white">
                 <!-- Initial message from bot -->
                 <div class="p-3 rounded-lg max-w-[85%] self-start bg-slate-200 text-slate-800">
-                    Hi! I'm Shahzaib's AI assistant, powered by Gemini. Ask me anything about his work, skills, or projects.
+                    Hi! I'm Shahzaib's AI assistant. Ask me anything about his work, skills, or projects.
                 </div>
             </div>
             <!-- Input -->
@@ -418,7 +418,7 @@
             });
         });
 
-        // --- AI Chatbot Logic (Powered by Gemini) ---
+        // --- AI Chatbot Logic (Powered by n8n & Mistral) ---
         const chatbotToggle = document.getElementById('chatbot-toggle');
         const chatbotWindow = document.getElementById('chatbot-window');
         const closeChatbot = document.getElementById('close-chatbot');
@@ -443,7 +443,8 @@
             chatbotInput.value = '';
             
             addTypingIndicator();
-            getGeminiResponse(message);
+            // *** CHANGE: Call the new function for n8n ***
+            getMistralResponse(message);
         });
         
         function addMessage(message, sender) {
@@ -479,48 +480,21 @@
         }
 
         /**
-         * Gets a response from the Gemini API.
+         * Gets a response from your n8n webhook.
          * @param {string} userMessage The user's message.
          */
-        async function getGeminiResponse(userMessage) {
-            // This is the context for the AI. It knows everything about Shahzaib from this prompt.
-            const contextPrompt = `
-                You are a friendly and professional AI assistant for Shahzaib Hassan's portfolio website.
-                Your goal is to answer questions about Shahzaib to potential employers, clients, or collaborators.
-                Keep your answers concise, informative, and engaging.
-                
-                Here is information about Shahzaib Hassan:
-                - **Role:** AI & Automation Specialist, Co-founder at NeuraFinity.
-                - **Mission:** He builds intelligent systems to automate real-world business operations.
-                - **Company (NeuraFinity):** Focuses on creating agentic AI solutions, especially for the finance sector. Their vision is to have intelligent agents work alongside humans.
-                - **Skills & Tech Stack:** - AI/ML: Python, TensorFlow, PyTorch.
-                    - Web Development: FastAPI, React, Node.js.
-                    - DevOps & Tools: Docker, Tailwind CSS.
-                - **Projects:**
-                    1.  **AI Agents for Business Automation:** Created autonomous agents for tasks like data entry, customer support, and financial analysis.
-                    2.  **LMS Portal:** Built a full-stack Learning Management System for course management.
-                    3.  **Python Bootcamp Series:** Developed curriculum and materials for teaching Python.
-                    4.  **GANs Lab:** Created interactive labs for students to experiment with Generative Adversarial Networks.
-                - **Experience:** Student at IUB (Computer Science), taught Python & AI bootcamps, and co-founded NeuraFinity.
-                - **Contact:** Users can get in touch via the contact form on the website.
-                
-                Now, please answer the following user question.
-            `;
-
-            const payload = {
-                contents: [{
-                    role: "user",
-                    parts: [{ text: `${contextPrompt}\n\nUser Question: "${userMessage}"` }]
-                }],
-            };
-            const apiKey = ""; // The environment will provide the key.
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+        async function getMistralResponse(userMessage) {
+            // *** CHANGE: Use your n8n webhook URL ***
+            const apiUrl = 'https://awsn8n.shahzaibhassan.site/webhook/portfolio';
 
             try {
                 const response = await fetch(apiUrl, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // *** CHANGE: Send a simple JSON object with the message ***
+                    body: JSON.stringify({ message: userMessage })
                 });
 
                 if (!response.ok) {
@@ -528,13 +502,16 @@
                 }
 
                 const result = await response.json();
-                const botReply = result.candidates[0].content.parts[0].text;
+                
+                // *** CHANGE: Access the response correctly from n8n's output ***
+                // This assumes your n8n workflow passes the Mistral response directly.
+                const botReply = result.choices[0].message.content;
                 
                 removeTypingIndicator();
                 addMessage(botReply, 'bot');
 
             } catch (error) {
-                console.error("Gemini API call failed:", error);
+                console.error("n8n webhook call failed:", error);
                 removeTypingIndicator();
                 addMessage("Sorry, I'm having a little trouble connecting right now. Please try again in a moment.", 'bot');
             }
@@ -547,6 +524,12 @@
             
             // Make the first section visible immediately on load
             document.querySelector('#home').classList.add('is-visible');
+            
+            // *** CHANGE: Update the initial bot message to be more generic ***
+            const initialBotMessage = document.querySelector('#chat-messages > div');
+            if (initialBotMessage) {
+                initialBotMessage.textContent = "Hi! I'm Shahzaib's AI assistant. Ask me anything about his work, skills, or projects.";
+            }
         });
     </script>
 </body>
