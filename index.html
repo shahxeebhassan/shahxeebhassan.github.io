@@ -16,6 +16,9 @@
     <!-- Feather Icons for social links -->
     <script src="https://unpkg.com/feather-icons"></script>
 
+    <!-- *** NEW: Add marked.js for Markdown rendering *** -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <style>
         /* Base styles for clarity and modern look */
         body {
@@ -94,6 +97,15 @@
             transform: translateY(0) scale(1);
             pointer-events: auto;
             visibility: visible;
+        }
+        
+        /* *** NEW: Style for links in chat bubbles *** */
+        .chat-bubble a {
+            color: #2563eb; /* blue-600 */
+            text-decoration: underline;
+        }
+        .chat-bubble a:hover {
+            color: #1d4ed8; /* blue-700 */
         }
     </style>
 </head>
@@ -322,7 +334,7 @@
             <!-- Messages -->
             <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 bg-white">
                 <!-- Initial message from bot -->
-                <div class="p-3 rounded-lg max-w-[85%] self-start bg-slate-200 text-slate-800">
+                <div class="p-3 rounded-lg max-w-[85%] self-start bg-slate-200 text-slate-800 chat-bubble">
                     Hi! I'm Shahzaib's AI assistant. Ask me anything about his work, skills, or projects.
                 </div>
             </div>
@@ -447,11 +459,14 @@
         
         function addMessage(message, sender) {
             const bubble = document.createElement('div');
-            bubble.textContent = message;
+            
             if (sender === 'user') {
                 bubble.className = 'chat-bubble-user p-3 rounded-lg max-w-[85%] self-end break-words';
+                bubble.textContent = message;
             } else {
-                bubble.className = 'p-3 rounded-lg max-w-[85%] self-start bg-slate-200 text-slate-800 break-words';
+                bubble.className = 'p-3 rounded-lg max-w-[85%] self-start bg-slate-200 text-slate-800 break-words chat-bubble';
+                // *** CHANGE: Use marked.js to parse the AI's Markdown response into HTML ***
+                bubble.innerHTML = marked.parse(message);
             }
             chatMessages.appendChild(bubble);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -477,10 +492,6 @@
             }
         }
 
-        /**
-         * Gets a response from your n8n webhook.
-         * @param {string} userMessage The user's message.
-         */
         async function getN8nResponse(userMessage) {
             const apiUrl = 'https://awsn8n.shahzaibhassan.site/webhook/portfolio';
 
@@ -498,9 +509,6 @@
                 }
 
                 const result = await response.json();
-                
-                // *** THIS IS THE FIX ***
-                // Read the 'body' property from the JSON object that n8n sends back.
                 const botReply = result.body;
                 
                 removeTypingIndicator();
